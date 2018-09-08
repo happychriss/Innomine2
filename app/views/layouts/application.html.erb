@@ -21,8 +21,14 @@
 
 </div>
 <header>
+
   <div class="nav">
     <ul>
+    <%if @user.nil? || @user.id==1%>
+        <p style="color: red; font-size: x-large  ">!!!UPDATE USER BEFORE RUNNING A COMPETITION!!</p>
+        <%else %>
+        <p>        <%=@user.name %></p>
+        <%end %>
       <li><%= link_to "Maintain Competition", competitions_path %></li>
       <li><%= link_to "Maintain User", users_path %></li>
 

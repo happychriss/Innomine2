@@ -18,9 +18,9 @@
         <td><%= competition.max_markets %></td>
         <td><%= competition.market_velocity_b %></td>
         <td><%= link_to 'RUN', competition_runs_path(competition) %></td>
-        <td><%= link_to 'Show', competition %></td>
-        <td><%= link_to 'Edit', edit_competition_path(competition) %></td>
-        <td><%= link_to 'Destroy', competition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Maintain Ideas', competition %></td>
+        <td><%= link_to 'Maintain Parameters', edit_competition_path(competition) %></td>
+        <td><%= link_to '!!DELETE!!', competition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
