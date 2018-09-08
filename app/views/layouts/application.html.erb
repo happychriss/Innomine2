@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Innomine1</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+
+<%unless @user.new_record? %>
+<div style="background-color: grey;margin-bottom: 5px;display: inline-block;float: right" align="right" >
+<%= form_for @user, url: update_current_path(@user) do |f| %>
+  <%= f.select :id, User.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  <%= f.submit %>
+<% end %>
+<% end %>
+
+</div>
+<header>
+  <div class="nav">
+    <ul>
+      <li><%= link_to "Maintain Competition", competitions_path %></li>
+      <li><%= link_to "Maintain User", users_path %></li>
+
+    </ul>
+  </div>
+
+</header>
+
+<%= yield %>
+</body>
+</html>

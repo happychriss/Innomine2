@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Competition name:</strong>
+  <%= @competition.competition_name %>
+</p>
+
+<p>
+  <strong>Max markets:</strong>
+  <%= @competition.max_markets %>
+</p>
+
+<p>
+  <strong>Market velocity b:</strong>
+  <%= @competition.market_velocity_b %>
+</p>
+
+<p>
+  <strong>Max Wins:</strong>
+  <%= @competition.maxwins %>
+</p>
+
+
+<%= link_to 'New idea', new_competition_idea_path(@competition) %> |
+
+<%= link_to 'List ideas', competition_ideas_path(@competition) %> |
+
+<%= link_to 'Edit', edit_competition_path(@competition) %> |
+<%= link_to 'Back', competitions_path %>
+

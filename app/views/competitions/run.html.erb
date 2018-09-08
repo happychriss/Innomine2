@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<h1>Running Competition" <%= @competition.competition_name %>"</h1>
+<% @user.reload %>
+
+<div style="background-color: orange;padding: 5px; width: 400px">
+  <h2><%= @user.name %></h2>
+  <p>You have <%= @user.credit_print %></p>
+  <p>Possible REWARD :<%= @competition.maxwins_per_user(@user.id) %></p>
+</div>
+
+</br>
+<h2>Vote for the best ideas</h2>
+
+<table id="index_table">
+
+
+  <thead>
+  <tr>
+    <th>Position</th>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Good Idea</th>
+    <th>I dont like</th>
+    <th>My Shares</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+
+  <% @competition.ideas_by_marketprice.each_with_index do |idea, index| %>
+
+
+    <% if index < @competition.maxwins %>
+      <tr bgcolor="#4CAF50" ;>
+
+    <% else %>
+      <tr bgcolor="#dcdcdc">
+    <% end %>
+
+
+    <td style='text-align:center'>
+      <%= index + 1 %>
+      <% case idea.market.tendency %>
+      <% when :up %>
+        &uarr;
+      <% when :down %>
+        &darr;
+      <% end %>
+    </td>
+
+
+    <td><%= idea.title %></td>
+    <td style='text-align:center'><%= idea.market.price_print %></td>
+
+    <td>
+
+      <% if @user.credit > idea.market.price %>
+        <%= form_tag(competition_buys_path(idea.market), method: "get") do %>
+          <% if idea.shares_per_user(@user.id) > 0 %>
+            <%= submit_tag("Love it, buy MORE!") %>
+          <% else %>
+            <%= submit_tag("I love this idea, buy it!") %>
+          <% end %>
+        <% end %>
+      <% else %>
+      NO CREDIT
+      <%end %>
+    </td>
+
+    <td>
+      <% if idea.shares_per_user(@user.id) > 0 %>
+        <%= form_tag(competition_sells_path(idea.market), method: "get") do %>
+          <%= submit_tag("Not sure, get out!") %>
+        <% end %>
+      <% end %>
+    </td>
+    <td style='text-align:center'><%= idea.shares_per_user(@user.id) %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+
+
+<br>
+
+<p>From all ideas, the top 3 (green) ideas will be evealuated/implemented.</p>
+<p>One idea (the best idea of the 3) will be announced. Your Shares of this idea will win</p>
+
+
+<%= link_to "Refresh", competition_runs_path(@competition) %>
